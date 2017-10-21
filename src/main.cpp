@@ -61,14 +61,14 @@ afwslot appMainFunction()
 		delete image1;
 		image1 = nullptr;
 
-		GEngine::ColorF color (0, 0, 0);
+		GEngine::Color color (0, 0, 0);
 
 		// Prepares to edit image2
 		for(int x = 0; x < width; x++) {
 		    for(int y = 0; y < height; y++) {
-		        color.setRed((float)Math::clamp(y-x, 0, height) / width);
-		        color.setGreen((float)abs(y-height) / width);
-		        color.setBlue((float)x / width);
+		        color.setRed((uint8_t)Math::clamp(y-x, 0, height));
+		        color.setGreen((uint8_t)abs(y-height));
+		        color.setBlue((uint8_t)x);
 
 		        image2->drawPixel(x, y, color);
 		    }
