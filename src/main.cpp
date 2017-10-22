@@ -63,16 +63,27 @@ afwslot appMainFunction()
 
 		GEngine::Color color (0, 0, 0);
 
+		image2->convertTo32Bits();
+		CLI::Log(CLI::Information, "Converted the image to 32-bit.");
+
 		// Prepares to edit image2
+		CLI::Log(CLI::Information, "Preparing to edit image2.");
 		for(int x = 0; x < width; x++) {
 		    for(int y = 0; y < height; y++) {
 		        color.setRed((uint8_t)Math::clamp(y-x, 0, height));
 		        color.setGreen((uint8_t)abs(y-height));
-		        color.setBlue((uint8_t)x);
+				color.setBlue((uint8_t)x);
+				
+				// DEBUG purposes
+				color.setAlpha((uint8_t)128);
 
-		        image2->drawPixel(x, y, color);
-		    }
+				image2->drawPixel(x, y, color);
+			}
 		}
+
+		CLI::Log(CLI::Information, "The image was drawn, saving it...");
+		image2->saveImage();
+		CLI::Log(CLI::Information, "The image was saved to \"output.png\"");
 
 	} catch(ImageNotFoundException& e1) {
 		CLI::Log(CLI::Error, e1.what());
@@ -80,7 +91,7 @@ afwslot appMainFunction()
 		CLI::Log(CLI::Error, e2.what());
 	}
 
-	image2->saveImage();
+	
 
 	// Initializes FreeImage
 	/*FreeImage_Initialise();
@@ -129,6 +140,7 @@ int main(int argc, char *argv[])
 	app = new Application(appMainFunction, argc, argv);
 	delete app;
 	delete image2;
+	image2 = nullptr;
 
 	return EXIT_SUCCESS;
 }
