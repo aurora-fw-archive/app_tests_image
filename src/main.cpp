@@ -28,15 +28,15 @@ int width = 255, height = 255, bpp = 24;
 
 Application *app;
 
-Image *image1;
+//Image *image1;
 Image *image2;
 
 void printRWInfo()
 {
-	AuroraFW::Debug::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
-							") and write-only. (", image1->isWriteOnly(), ")");
+	//AuroraFW::Debug::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
+	//						") and write-only. (", image1->isWriteOnly(), ")");
 
-	AuroraFW::Debug::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
+	//AuroraFW::Debug::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
 
 	AuroraFW::Debug::Log("The image \"output.png\" is read-only, (", image2->isReadOnly(),
 							") and write-only. (", image2->isWriteOnly(), ")");
@@ -49,8 +49,8 @@ afwslot appMainFunction()
 	//Debug::enableDebug();
 	try {
 		// Opens two images
-		CLI::Log(CLI::Information, "Opening output.jpg as read-only.");
-		image1 = new Image(FIF_JPEG, "output.jpg", ImageFlags::Read);
+		//CLI::Log(CLI::Information, "Opening output.jpg as read-only.");
+		//image1 = new Image(FIF_JPEG, "output.jpg", ImageFlags::Read);
 		CLI::Log(CLI::Information, "Opening output.png as write-only.");
 		image2 = new Image(FIF_PNG, "output.png", ImageFlags::Write, width, height, bpp);
 
@@ -58,15 +58,17 @@ afwslot appMainFunction()
 		printRWInfo();
 
 		// Closes image1
-		delete image1;
-		image1 = nullptr;
+		//delete image1;
+		//image1 = nullptr;
 
-		GEngine::Color color (0, 0, 0);
+		AuroraFW::Debug::Log("Creating color");
+		GEngine::Color color(0, 0, 0);
 
 		image2->convertTo32Bits();
 		CLI::Log(CLI::Information, "Converted the image to 32-bit.");
 
 		// Prepares to edit image2
+<<<<<<< HEAD
 		CLI::Log(CLI::Information, "Preparing to edit image2.");
 		for(int x = 0; x < width; x++) {
 		    for(int y = 0; y < height; y++) {
@@ -79,6 +81,18 @@ afwslot appMainFunction()
 
 				image2->drawPixel(x, y, color);
 			}
+=======
+		AuroraFW::Debug::Log("Draw");
+		for(int x = 0; x < width; x++) {
+		    for(int y = 0; y < height; y++) {
+		        color.setRed((float)Math::clamp(y-x, 0, height)*255.0f);
+		        color.setGreen((float)abs(y-height)*255.0f);
+		        color.setBlue((float)x*255.0f);
+
+				//AuroraFW::Debug::Log("Draw pixel");
+		        image2->drawPixel(x, y, color);
+		    }
+>>>>>>> cacb9403147f0138a16f5993def423f444b9de7d
 		}
 
 		CLI::Log(CLI::Information, "The image was drawn, saving it...");
