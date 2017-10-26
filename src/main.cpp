@@ -68,12 +68,11 @@ afwslot appMainFunction()
 		CLI::Log(CLI::Information, "Converted the image to 32-bit.");
 
 		// Prepares to edit image2
-<<<<<<< HEAD
 		CLI::Log(CLI::Information, "Preparing to edit image2.");
 		for(int x = 0; x < width; x++) {
-		    for(int y = 0; y < height; y++) {
-		        color.setRed((uint8_t)Math::clamp(y-x, 0, height));
-		        color.setGreen((uint8_t)abs(y-height));
+			for(int y = 0; y < height; y++) {
+				color.setRed((uint8_t)Math::clamp(y-x, 0, height));
+				color.setGreen((uint8_t)abs(y-height));
 				color.setBlue((uint8_t)x);
 				
 				// DEBUG purposes
@@ -81,18 +80,6 @@ afwslot appMainFunction()
 
 				image2->drawPixel(x, y, color);
 			}
-=======
-		AuroraFW::Debug::Log("Draw");
-		for(int x = 0; x < width; x++) {
-		    for(int y = 0; y < height; y++) {
-		        color.setRed((float)Math::clamp(y-x, 0, height)*255.0f);
-		        color.setGreen((float)abs(y-height)*255.0f);
-		        color.setBlue((float)x*255.0f);
-
-				//AuroraFW::Debug::Log("Draw pixel");
-		        image2->drawPixel(x, y, color);
-		    }
->>>>>>> cacb9403147f0138a16f5993def423f444b9de7d
 		}
 
 		CLI::Log(CLI::Information, "The image was drawn, saving it...");
