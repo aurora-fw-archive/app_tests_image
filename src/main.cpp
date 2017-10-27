@@ -28,15 +28,15 @@ int width = 255, height = 255, bpp = 24;
 
 Application *app;
 
-//Image *image1;
+Image *image1;
 Image *image2;
 
 void printRWInfo()
 {
-	//AuroraFW::Debug::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
-	//						") and write-only. (", image1->isWriteOnly(), ")");
+	AuroraFW::Debug::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
+							") and write-only. (", image1->isWriteOnly(), ")");
 
-	//AuroraFW::Debug::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
+	AuroraFW::Debug::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
 
 	AuroraFW::Debug::Log("The image \"output.png\" is read-only, (", image2->isReadOnly(),
 							") and write-only. (", image2->isWriteOnly(), ")");
@@ -46,11 +46,10 @@ void printRWInfo()
 
 afwslot appMainFunction()
 {
-	//Debug::enableDebug();
 	try {
-		// Opens two images
-		//CLI::Log(CLI::Information, "Opening output.jpg as read-only.");
-		//image1 = new Image(FIF_JPEG, "output.jpg", ImageFlags::Read);
+		// Opens two images (one for reading and the other for editing)
+		CLI::Log(CLI::Information, "Opening output.jpg as read-only.");
+		image1 = new Image(FIF_JPEG, "output.jpg", ImageFlags::Read);
 		CLI::Log(CLI::Information, "Opening output.png as write-only.");
 		image2 = new Image(FIF_PNG, "output.png", ImageFlags::Write, width, height, bpp);
 
@@ -58,12 +57,14 @@ afwslot appMainFunction()
 		printRWInfo();
 
 		// Closes image1
-		//delete image1;
-		//image1 = nullptr;
+		delete image1;
+		image1 = nullptr;
 
+		// Creates the color for editing
 		AuroraFW::Debug::Log("Creating color");
 		GEngine::Color color(0, 0, 0);
 
+		// BPP was specified to be 24, so tests converting it to 32
 		image2->convertTo32Bits();
 		CLI::Log(CLI::Information, "Converted the image to 32-bit.");
 
@@ -91,47 +92,6 @@ afwslot appMainFunction()
 	} catch(ImageAllocationFailedException& e2) {
 		CLI::Log(CLI::Error, e2.what());
 	}
-
-	
-
-	// Initializes FreeImage
-	/*FreeImage_Initialise();
-	CLI::Log(CLI::Information, "FreeImage has successfully initialized.");
-	CLI::Log(CLI::Information, "FreeImage's version: ", FreeImage_GetVersion());
-	CLI::Log(CLI::Information, "FreeImage's Copyright message: ", FreeImage_GetCopyrightMessage());
-
-	// Prepares to dray a PNG image
-	FIBITMAP *image = FreeImage_Allocate(width, height, bpp);
-	RGBQUAD color;
-
-	if(image == nullptr)
-		return;
-	CLI::Log(CLI::Information, "Allocated space for new image");
-
-	// Starts drawing the puke image
-
-	for (int i = 0; i < width; i++)
-	{
-		for (int j = 0; j < height; j++)
-		{
-			color.rgbRed = (float)Math::clamp(j-i, 0, height) / width * 255.0f;
-			color.rgbGreen = (float)abs(j-height) / width * 255.0f;
-			color.rgbBlue = (float)i / width * 255.0f;
-			FreeImage_SetPixelColor(image, i, j, &color);
-		}
-	}
-
-	CLI::Log(CLI::Information, "The image was drawn. Saving it now to 'output.png'");
-
-	if(FreeImage_Save(FIF_PNG, image, "output.png", 0))
-		CLI::Log(CLI::Information, "Success! The image was saved!");
-	else
-		CLI::Log(CLI::Information, "Error! The image couldn't be saved!");
-	
-	FreeImage_DeInitialise();
-	CLI::Log(CLI::Information, "FreeImage was deinitialised.");
-	
-	return;*/
 
 	return;
 }
