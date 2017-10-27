@@ -139,6 +139,7 @@ afwslot appMainFunction()
 int main(int argc, char *argv[])
 {
 	app = new Application(appMainFunction, argc, argv);
+	
 	delete app;
 	delete image2;
 	image2 = nullptr;
