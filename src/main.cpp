@@ -40,7 +40,7 @@ void printRWInfo()
 
 	AuroraFW::Debug::Log("The image \"output.png\" is read-only, (", image2->isReadOnly(),
 							") and write-only. (", image2->isWriteOnly(), ")");
-	
+
 	AuroraFW::Debug::Log("Also, the image \"output.png\" is read-and-write. (", image2->isReadAndWrite(), ").");
 }
 
@@ -75,7 +75,7 @@ afwslot appMainFunction()
 				color.setRed((uint8_t)Math::clamp(y-x, 0, height));
 				color.setGreen((uint8_t)abs(y-height));
 				color.setBlue((uint8_t)x);
-				
+
 				// DEBUG purposes
 				color.setAlpha((uint8_t)128);
 
@@ -86,7 +86,6 @@ afwslot appMainFunction()
 		CLI::Log(CLI::Information, "The image was drawn, saving it...");
 		image2->saveImage();
 		CLI::Log(CLI::Information, "The image was saved to \"output.png\"");
-
 	} catch(ImageNotFoundException& e1) {
 		CLI::Log(CLI::Error, e1.what());
 	} catch(ImageAllocationFailedException& e2) {
@@ -99,7 +98,7 @@ afwslot appMainFunction()
 int main(int argc, char *argv[])
 {
 	app = new Application(appMainFunction, argc, argv);
-	
+
 	delete app;
 	delete image2;
 	image2 = nullptr;
