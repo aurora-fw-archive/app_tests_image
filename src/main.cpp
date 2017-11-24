@@ -17,9 +17,6 @@
 ****************************************************************************/
 
 #include <AuroraFW/Aurora.h>
-#include <AuroraFW/Math/Algorithm.h>
-
-#include <exception>
 
 using namespace AuroraFW;
 using namespace ImageManager;
