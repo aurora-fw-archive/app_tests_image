@@ -30,15 +30,15 @@ Image *image2;
 
 void printRWInfo()
 {
-	AuroraFW::Debug::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
+	AuroraFW::DebugManager::Log("The image \"output.jpg\" is read-only, (", image1->isReadOnly(),
 							") and write-only. (", image1->isWriteOnly(), ")");
 
-	AuroraFW::Debug::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
+	AuroraFW::DebugManager::Log("Also, the image \"output.jpg\" is read-and-write. (", image1->isReadAndWrite(), ").");
 
-	AuroraFW::Debug::Log("The image \"output.png\" is read-only, (", image2->isReadOnly(),
+	AuroraFW::DebugManager::Log("The image \"output.png\" is read-only, (", image2->isReadOnly(),
 							") and write-only. (", image2->isWriteOnly(), ")");
 
-	AuroraFW::Debug::Log("Also, the image \"output.png\" is read-and-write. (", image2->isReadAndWrite(), ").");
+	AuroraFW::DebugManager::Log("Also, the image \"output.png\" is read-and-write. (", image2->isReadAndWrite(), ").");
 }
 
 afwslot appMainFunction()
@@ -58,7 +58,7 @@ afwslot appMainFunction()
 		image1 = nullptr;
 
 		// Creates the color for editing
-		AuroraFW::Debug::Log("Creating color");
+		AuroraFW::DebugManager::Log("Creating color");
 		GEngine::Color color(0, 0, 0);
 
 		// BPP was specified to be 24, so tests converting it to 32
