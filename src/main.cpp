@@ -41,7 +41,7 @@ void printRWInfo()
 	AuroraFW::DebugManager::Log("Also, the image \"output.png\" is read-and-write. (", image2->isReadAndWrite(), ").");
 }
 
-afwslot appMainFunction()
+afwslot appMainFunction(Application* )
 {
 	try {
 		// Opens two images (one for reading and the other for editing)
@@ -94,7 +94,7 @@ afwslot appMainFunction()
 
 int main(int argc, char *argv[])
 {
-	app = new Application(appMainFunction, argc, argv);
+	app = new Application(argc, argv, appMainFunction);
 
 	delete app;
 	delete image2;
