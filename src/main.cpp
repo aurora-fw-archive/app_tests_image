@@ -59,7 +59,7 @@ void appMainFunction(Application* )
 
 		// Creates the color for editing
 		AuroraFW::DebugManager::Log("Creating color");
-		GEngine::Color color(0, 0, 0);
+		Color color(0, 0, 0);
 
 		// BPP was specified to be 24, so tests converting it to 32
 		image2->convertTo32Bits();
